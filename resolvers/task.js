@@ -19,8 +19,16 @@ module.exports = {
     },
   },
   Task: {
-    user: ({ userId }) => {
-      return users.find((user) => user.id === userId);
+    user: (parent) => {
+      //return users.find((user) => user.id === parent.userId);
+      console.log(parent);
+      const result = [];
+      parent.userId.map((id) => {
+        const obj = users.find((user) => user.id === id);
+        result.push(obj);
+      });
+
+      return result;
     },
   },
 };

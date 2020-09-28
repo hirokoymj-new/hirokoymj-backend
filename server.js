@@ -45,19 +45,8 @@ const typeDefs = gql`
     id: ID!
     name: String!
     completed: Boolean!
-    user: User!
-  }
-
-  type Category {
-    id: ID!
-    name: String!
-    subCategory: [String]
-  }
-
-  type subCategory {
-    id: ID!
-    name: String!
-    topics: [Topic]
+    #user: User!
+    user: [User!]
   }
 `;
 

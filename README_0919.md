@@ -1,10 +1,5 @@
 # Section 4: Building Graphql API
 
-Date: Sat. 09/19/2020
-Cource Contents:
-Start: 7. Where to find source code?
-End: 13.GraphQL Resolvers and Type Modifier
-
 ## 9. Schema basics
 
 - A schema to describe the shape of your data graph.

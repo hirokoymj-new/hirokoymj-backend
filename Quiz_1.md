@@ -1,16 +1,14 @@
-# Quiz - Apollo Server
+# Quiz - Type definitions and Resolvers
 
-**Write Resolvers from Type Definitions**
-**Q1: What is Resolver?**
+**Q0: What is Resolver?**
 
-**QA:**
+**A0:**
 
-````text
+```text
 A resolver is a function that's responsible for populating the data for a single field in your schema.
+```
 
-
-Define top-level resolvers
-As mentioned above, the resolver for a parent field always executes before the resolvers for that field's children.
+<hr />
 
 **Q1: Write Resolver**
 
@@ -19,7 +17,7 @@ type Query {
   numberSix: Int! # Should always return the number 6 when queried
   numberSeven: Int! # Should always return 7
 }
-````
+```
 
 **A1: Write Resolver**
 
@@ -143,9 +141,13 @@ const resolvers = {
 **Q1:**
 ```js
 ````
+
 **A1:**
+
 ```js
+
 ```
+
 <hr />
 **Q1:**
 ```js
