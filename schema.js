@@ -1,8 +1,9 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  scalar Date
+
   type Query {
-    greetings: [String]!
     tasks: [Task!]
     task(id: ID!): Task!
     users: [User!]
@@ -15,8 +16,25 @@ const typeDefs = gql`
     userId: ID!
   }
 
+  input signupInput {
+    name: String!
+    email: String!
+    password: String!
+  }
+
   type Mutation {
-    createTask(input: createTaskInput): Task!
+    createTask(input: createTaskInput): Task
+    signup(input: signupInput): User
+    login(input: loginInput): Token
+  }
+
+  input loginInput {
+    email: String!
+    password: String!
+  }
+
+  type Token {
+    token: String!
   }
 
   type User {
@@ -24,14 +42,16 @@ const typeDefs = gql`
     name: String!
     email: String!
     tasks: [Task!]
+    createdAt: Date!
+    updatedAt: Date!
   }
 
   type Task {
     id: ID!
     name: String!
     completed: Boolean!
-    #user: User!
-    user: [User!]
+    user: User!
+    # user: [User!]
   }
 `;
 

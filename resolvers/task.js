@@ -20,15 +20,15 @@ module.exports = {
   },
   Task: {
     user: (parent) => {
-      //return users.find((user) => user.id === parent.userId);
-      console.log(parent);
-      const result = [];
-      parent.userId.map((id) => {
-        const obj = users.find((user) => user.id === id);
-        result.push(obj);
-      });
+      return users.find((user) => user.id === parent.userId);
+      // console.log(parent);
+      // const result = [];
+      // parent.userId.map((id) => {
+      //   const obj = users.find((user) => user.id === id);
+      //   result.push(obj);
+      // });
 
-      return result;
+      // return result;
     },
   },
 };
