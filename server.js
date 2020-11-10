@@ -24,12 +24,12 @@ app.use(express.json());
 
 const verifyUser = async (req) => {
   try {
+    console.log("===requerst header");
+    console.log(req.headers);
     req.email = null;
     const bearerHeader = req.headers.authorization;
     if (bearerHeader) {
       const token = bearerHeader.split(" ")[1];
-      console.log("===task", token);
-
       const payload = jwt.verify(
         token,
         process.env.JWT_SECRET_KEY || "mysecretkey"

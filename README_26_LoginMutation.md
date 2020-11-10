@@ -31,12 +31,12 @@ module.exports = {
   Mutation: {
     login: async (_, { input }) => {
       try {
-				// 1. Check if user exists
+        // 1. Check if user exists
         const user = await User.findOne({ email: input.email });
         if (!user) {
           throw new Error("User not found");
         }
-				// 2. Check password
+        // 2. Check password
         const isPasswordValid = await bcrypt.compare(
           input.password,
           user.password

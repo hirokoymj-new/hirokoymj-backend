@@ -23,7 +23,6 @@ const typeDefs = gql`
 
 ```js
 const bcrypt = require("bcryptjs");
-const { tasks, users } = require("../constants");
 const User = require("../database/models/user");
 
 module.exports = {
