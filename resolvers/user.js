@@ -1,23 +1,28 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { combineResolvers } = require("graphql-resolvers");
 
 const User = require("../database/models/user");
 const Task = require("../database/models/task");
+const { isAuthenticated } = require("./middleware");
 
 module.exports = {
   Query: {
     users: (_) => {
       return User.find();
     },
-    user: (_, args, { email }) => {
-      console.log("===Query user");
-      console.log(email);
-      if (!email) {
-        throw Error("Access Denied. Please login");
+    user: combineResolvers(isAuthenticated, async (_, __, { email }) => {
+      try {
+        const user = await User.findOne({ email });
+        if (!user) {
+          throw new Error("User not found!");
+        }
+        return user;
+      } catch (error) {
+        console.log(error);
+        throw error;
       }
-      const user = User.findById(args.id);
-      return user;
-    },
+    }),
   },
   Mutation: {
     signup: async (_, { input }) => {
@@ -26,7 +31,6 @@ module.exports = {
         if (user) {
           throw new Error("Email already in use");
         }
-        console.log("user password", input.password);
         const hashedPassword = await bcrypt.hash(input.password, 12);
         const newUser = new User({ ...input, password: hashedPassword });
         const result = await newUser.save();
@@ -61,8 +65,15 @@ module.exports = {
     },
   },
   User: {
-    tasks: ({ id }) => {
-      return tasks.filter((task) => task.id === id);
+    tasks: async ({ id }) => {
+      // id comes from Parents
+      try {
+        const tasks = await Task.find({ user: id });
+        return tasks;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     },
   },
 };

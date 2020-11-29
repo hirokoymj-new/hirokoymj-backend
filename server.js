@@ -22,37 +22,56 @@ app.use(cors());
 // body parser middleware
 app.use(express.json());
 
-const verifyUser = async (req) => {
-  try {
-    console.log("===requerst header");
-    console.log(req.headers);
-    req.email = null;
-    const bearerHeader = req.headers.authorization;
-    if (bearerHeader) {
-      const token = bearerHeader.split(" ")[1];
-      const payload = jwt.verify(
-        token,
-        process.env.JWT_SECRET_KEY || "mysecretkey"
-      );
-      console.log("payload.email", payload.email);
-
-      req.email = payload.email;
-    }
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-};
+// const verifyUser = async (req) => {
+//   try {
+//     console.log("===requerst header");
+//     console.log(req.headers);
+//     req.email = null;
+//     const bearerHeader = req.headers.authorization;
+//     if (bearerHeader) {
+//       const token = bearerHeader.split(" ")[1];
+//       const payload = jwt.verify(
+//         token,
+//         process.env.JWT_SECRET_KEY || "mysecretkey"
+//       );
+//       req.email = payload.email;
+//     }
+//     // Put this code is not good idea because login mutation won't need to check token.
+//     // if (!req.email) {
+//     //   throw new Error("Access Denied. please login");
+//     // }
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// };
 
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
   context: async ({ req }) => {
-    await verifyUser(req);
-    console.log("===context ran");
-    return {
-      email: req.email,
-    };
+    try {
+      req.email = null;
+      const bearerHeader = req.headers.authorization;
+      if (bearerHeader) {
+        const token = bearerHeader.split(" ")[1];
+        const payload = jwt.verify(
+          token,
+          process.env.JWT_SECRET_KEY || "mysecretkey"
+        );
+        req.email = payload.email;
+      }
+      // Put this code is not good idea because login mutation won't need to check token.
+      // if (!req.email) {
+      //   throw new Error("Access Denied. please login");
+      // }
+      return {
+        email: req.email,
+      };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   },
 });
 

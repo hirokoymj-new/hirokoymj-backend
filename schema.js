@@ -7,7 +7,7 @@ const typeDefs = gql`
     tasks: [Task!]
     task(id: ID!): Task!
     users: [User!]
-    user(id: ID!): User!
+    user: User
   }
 
   input createTaskInput {
@@ -46,13 +46,48 @@ const typeDefs = gql`
     updatedAt: Date!
   }
 
+  # type Category{
+  # 	id: ID!
+  # 	name: String!
+  # 	subCategories: [SubCategory!]
+  # }
+
+  # type Topic{
+  # 	id: ID
+  # 	title: String!
+  # 	url: String!
+  # 	categoryId: ID
+  # 	subCategoryId: ID
+  # }
+
   type Task {
     id: ID!
     name: String!
     completed: Boolean!
     user: User!
-    # user: [User!]
   }
+
+  # type SubCategory{
+  # 	id: ID!
+  # 	name: String!
+  # 	category: Category!
+  # }
 `;
+
+//shopping, false, hiroko
+
+// Category
+// JavaScript
+
+// Category - SubCatewgory - Topic
+// JavaScript - Basic - www.test1.com
+// JavaScript - Basic - www.test2.com
+// JavaScript - Basic - www.test3.com
+
+// JavaScript - ES6 - www.es6.com
+// JavaScript - ES6 - www.es7.com
+// JavaScript - ES6 - www.es8.com
+
+// JavaScript - Advanced JavaScript
 
 module.exports = typeDefs;

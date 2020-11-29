@@ -1,6 +1,10 @@
 const uuid = require("uuid");
 
-const { tasks, users } = require("../constants");
+//const { tasks, users } = require("../constants");
+
+// Import Task and User model
+const Task = require("../database/models/task");
+const User = require("../database/models/user");
 
 module.exports = {
   Query: {
@@ -8,14 +12,8 @@ module.exports = {
     task: (_, { id }) => tasks.find((task) => task.id === id),
   },
   Mutation: {
-    createTask: (_, { input }) => {
-      const newTask = {
-        ...input,
-        id: uuid.v4(),
-      };
-
-      tasks.push(newTask);
-      return newTask;
+    createTask: (_, { input }, { email }) => {
+      const task = new Task({ ...input });
     },
   },
   Task: {
