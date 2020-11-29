@@ -8,12 +8,13 @@ const typeDefs = gql`
     task(id: ID!): Task!
     users: [User!]
     user: User
+    categories: [Category!]
   }
 
   input createTaskInput {
     name: String!
     completed: Boolean!
-    userId: ID!
+    # userId: ID!
   }
 
   input signupInput {
@@ -26,6 +27,7 @@ const typeDefs = gql`
     createTask(input: createTaskInput): Task
     signup(input: signupInput): User
     login(input: loginInput): Token
+    createCategory(input: createCategoryInput): Category
   }
 
   input loginInput {
@@ -46,11 +48,17 @@ const typeDefs = gql`
     updatedAt: Date!
   }
 
-  # type Category{
-  # 	id: ID!
-  # 	name: String!
-  # 	subCategories: [SubCategory!]
-  # }
+  type Category {
+    id: ID!
+    name: String!
+    # subCategories: [SubCategory!]
+    createdAt: Date!
+    updatedAt: Date!
+  }
+
+  input createCategoryInput {
+    name: String!
+  }
 
   # type Topic{
   # 	id: ID
@@ -65,12 +73,14 @@ const typeDefs = gql`
     name: String!
     completed: Boolean!
     user: User!
+    createdAt: Date!
+    updatedAt: Date!
   }
 
-  # type SubCategory{
-  # 	id: ID!
-  # 	name: String!
-  # 	category: Category!
+  # type SubCategory {
+  #   id: ID!
+  #   name: String!
+  #   category: Category!
   # }
 `;
 
