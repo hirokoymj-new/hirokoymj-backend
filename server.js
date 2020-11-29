@@ -5,7 +5,8 @@ const dotEnv = require("dotenv");
 const jwt = require("jsonwebtoken");
 
 const resolvers = require("./resolvers");
-const typeDefs = require("./schema");
+//const typeDefs = require("./schema");
+const typeDefs = require("./typeDefs");
 const { connection } = require("./database/util");
 
 // set env variables
