@@ -6,6 +6,7 @@ module.exports = gql`
     category(id: ID!): Category!
     subCategories: [SubCategory!]
     subCategory(id: ID!): SubCategory
+    subCategoryByCategoryId(categoryId: ID): [SubCategory!]
   }
 
   extend type Mutation {
@@ -26,12 +27,12 @@ module.exports = gql`
 
   input createSubCategoryInput {
     name: String!
-    # category: Category!
+    category: ID!
   }
 
   type SubCategory {
     id: ID!
     name: String!
-    # category: Category!
+    category: Category
   }
 `;

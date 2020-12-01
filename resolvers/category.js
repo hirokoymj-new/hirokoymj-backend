@@ -22,6 +22,10 @@ module.exports = {
       const subCategory = SubCategory.findById(id);
       return subCategory;
     },
+    subCategoryByCategoryId: (_, { categoryId }) => {
+      const subCategoryArray = SubCategory.find({ category: categoryId });
+      return subCategoryArray;
+    },
   },
   Mutation: {
     createCategory: async (_, { input }) => {
@@ -36,12 +40,21 @@ module.exports = {
     },
     createSubCategory: async (_, { input }) => {
       try {
+        console.log("createSubCategory");
+        console.log({ ...input });
         const subCategory = new SubCategory({ ...input });
         const result = await subCategory.save();
         return result;
       } catch (error) {
         console.log(error);
       }
+    },
+  },
+  SubCategory: {
+    // Field Level Resolver
+    category: async (parent) => {
+      const category = await Category.findById(parent.category);
+      return category;
     },
   },
 };

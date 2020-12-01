@@ -7,8 +7,18 @@ const { isAuthenticated } = require("./middleware");
 
 module.exports = {
   Query: {
-    tasks: () => tasks,
-    task: (_, { id }) => tasks.find((task) => task.id === id),
+    tasks: combineResolvers(isAuthenticated, async (_) => {
+      return Task.find();
+    }),
+    task: combineResolvers(isAuthenticated, async (_, { id }) => {
+      try {
+        const task = await Task.findById(id);
+        return task;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    }),
   },
   Mutation: {
     createTask: combineResolvers(
@@ -29,16 +39,9 @@ module.exports = {
     ),
   },
   Task: {
-    user: (parent) => {
-      return users.find((user) => user.id === parent.userId);
-      // console.log(parent);
-      // const result = [];
-      // parent.userId.map((id) => {
-      //   const obj = users.find((user) => user.id === id);
-      //   result.push(obj);
-      // });
-
-      // return result;
+    user: async (parent) => {
+      const user = await User.findById(parent.user);
+      return user;
     },
   },
 };
