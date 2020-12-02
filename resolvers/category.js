@@ -49,9 +49,35 @@ module.exports = {
         console.log(error);
       }
     },
+    updateCategory: async (_, { id, input }) => {
+      try {
+        const category = await Category.findByIdAndUpdate(
+          id,
+          { ...input },
+          { new: true }
+        );
+        return category;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
+    updateSubCategory: async (_, { id, input }) => {
+      try {
+        const subCategory = await SubCategory.findByIdAndUpdate(
+          id,
+          { ...input },
+          { new: true }
+        );
+        return subCategory;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
   },
+  // Field Level Resolver
   SubCategory: {
-    // Field Level Resolver
     category: async (parent) => {
       const category = await Category.findById(parent.category);
       return category;
