@@ -48,3 +48,12 @@ module.exports = gql`
     updatedAt: Date!
   }
 `;
+
+// Category - SubCatewgory - Topic
+// JavaScript - Basic - www.test1.com
+// JavaScript - Basic - www.test2.com
+// JavaScript - Basic - www.test3.com
+
+// JavaScript - ES6 - www.es6.com
+// JavaScript - ES6 - www.es7.com
+// JavaScript - ES6 - www.es8.com
