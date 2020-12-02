@@ -3,10 +3,13 @@ const { gql } = require("apollo-server-express");
 module.exports = gql`
   extend type Query {
     categories: [Category!]
-    category(id: ID!): Category!
+    categoryById(id: ID!): Category!
     subCategories: [SubCategory!]
-    subCategory(id: ID!): SubCategory
-    subCategoryByCategoryId(categoryId: ID): [SubCategory!]
+    subCategoryById(id: ID!): SubCategory
+    subCategoryByCategory(categoryId: ID): [SubCategory!]
+    topics: [Topic!]
+    topicById(id: ID!): Topic!
+    topicByCategory(categoryId: ID!): [Topic!]
   }
 
   extend type Mutation {
@@ -14,6 +17,8 @@ module.exports = gql`
     updateCategory(id: ID!, input: updateCategoryInput!): Category
     createSubCategory(input: createSubCategoryInput): SubCategory
     updateSubCategory(id: ID!, input: updateSubCategoryInput!): SubCategory
+    createTopic(input: createTopicInput): Topic
+    deleteTopic(id: ID!): Topic
   }
 
   type Category {
@@ -40,12 +45,27 @@ module.exports = gql`
     name: String!
   }
 
+  input createTopicInput {
+    title: String!
+    url: String!
+    category: ID!
+    subCategory: ID!
+  }
+
   type SubCategory {
     id: ID!
     name: String!
     category: Category
     createdAt: Date!
     updatedAt: Date!
+  }
+
+  type Topic {
+    id: ID!
+    title: String!
+    url: String!
+    category: Category!
+    subCategory: SubCategory!
   }
 `;
 

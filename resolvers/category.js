@@ -4,6 +4,7 @@ const { combineResolvers } = require("graphql-resolvers");
 
 const Category = require("../database/models/category");
 const SubCategory = require("../database/models/subCategory");
+const Topic = require("../database/models/topic");
 const { isAuthenticated } = require("./middleware");
 
 module.exports = {
@@ -11,20 +12,31 @@ module.exports = {
     categories: (_) => {
       return Category.find();
     },
-    category: (_, { id }) => {
+    categoryById: (_, { id }) => {
       const category = Category.findById(id);
       return category;
     },
     subCategories: (_) => {
       return SubCategory.find();
     },
-    subCategory: (_, { id }) => {
+    subCategoryById: (_, { id }) => {
       const subCategory = SubCategory.findById(id);
       return subCategory;
     },
-    subCategoryByCategoryId: (_, { categoryId }) => {
+    subCategoryByCategory: (_, { categoryId }) => {
       const subCategoryArray = SubCategory.find({ category: categoryId });
       return subCategoryArray;
+    },
+    topics: (_) => {
+      return Topic.find();
+    },
+    topicById: (_, { id }) => {
+      const topic = Topic.findById(id);
+      return topic;
+    },
+    topicByCategory: (_, { categoryId }) => {
+      const topicArray = Topic.find({ category: categoryId });
+      return topicArray;
     },
   },
   Mutation: {
@@ -40,10 +52,17 @@ module.exports = {
     },
     createSubCategory: async (_, { input }) => {
       try {
-        console.log("createSubCategory");
-        console.log({ ...input });
         const subCategory = new SubCategory({ ...input });
         const result = await subCategory.save();
+        return result;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    createTopic: async (_, { input }) => {
+      try {
+        const topic = new Topic({ ...input });
+        const result = await topic.save();
         return result;
       } catch (error) {
         console.log(error);
@@ -75,12 +94,30 @@ module.exports = {
         throw error;
       }
     },
+    deleteTopic: async (_, { id }) => {
+      try {
+        const topic = await Topic.findByIdAndDelete(id);
+        return topic;
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   // Field Level Resolver
   SubCategory: {
     category: async (parent) => {
       const category = await Category.findById(parent.category);
       return category;
+    },
+  },
+  Topic: {
+    category: async (parent) => {
+      const category = await Category.findById(parent.category);
+      return category;
+    },
+    subCategory: async (parent) => {
+      const subCategory = await SubCategory.findById(parent.subCategory);
+      return subCategory;
     },
   },
 };
