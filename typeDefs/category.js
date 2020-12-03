@@ -19,6 +19,7 @@ module.exports = gql`
     updateSubCategory(id: ID!, input: updateSubCategoryInput!): SubCategory
     createTopic(input: createTopicInput): Topic
     deleteTopic(id: ID!): Topic
+    updateTopic(id: ID!, input: updateTopicInput): Topic
   }
 
   type Category {
@@ -52,6 +53,11 @@ module.exports = gql`
     subCategory: ID!
   }
 
+  input updateTopicInput {
+    title: String
+    url: String
+  }
+
   type SubCategory {
     id: ID!
     name: String!
@@ -68,12 +74,3 @@ module.exports = gql`
     subCategory: SubCategory!
   }
 `;
-
-// Category - SubCatewgory - Topic
-// JavaScript - Basic - www.test1.com
-// JavaScript - Basic - www.test2.com
-// JavaScript - Basic - www.test3.com
-
-// JavaScript - ES6 - www.es6.com
-// JavaScript - ES6 - www.es7.com
-// JavaScript - ES6 - www.es8.com

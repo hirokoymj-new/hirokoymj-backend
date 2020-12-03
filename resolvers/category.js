@@ -102,6 +102,19 @@ module.exports = {
         console.log(error);
       }
     },
+    updateTopic: async (_, { id, input }) => {
+      try {
+        const topic = await Topic.findByIdAndUpdate(
+          id,
+          { ...input },
+          { new: true }
+        );
+        return topic;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
   },
   // Field Level Resolver
   SubCategory: {
