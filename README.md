@@ -14,7 +14,8 @@
 - [README_27](./README_27_ResolverContext.md)
 - [README_28](./README_28_VerifyToken.md)
  
- 
- 
+ .env
+ //MONGO_DB_URL=mongodb://localhost:27017/mydb
+
 
 
