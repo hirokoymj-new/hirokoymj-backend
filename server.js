@@ -54,17 +54,18 @@ const apolloServer = new ApolloServer({
 
 apolloServer.applyMiddleware({ app, path: "/graphql" });
 
-//const PORT = process.env.PORT || 3000;
-const PORT = process.env.PORT || 4000;
+//const PORT = process.env.PORT || 4000;
 
 app.use("/", (req, res, next) => {
   res.send({ message: "Hello Hiroko" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on PORT: ${PORT}`);
-});
-
-// apolloServer.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
-//   console.log(`🚀 Server ready at ${url}`);
+// app.listen(PORT, () => {
+//   console.log(`Server listening on PORT: ${PORT}`);
 // });
+
+app.listen({ port: process.env.PORT || 4000 }, () =>
+  console.log(
+    `🚀 Server ready at http://localhost:4000${apolloServer.graphqlPath}`
+  )
+);
