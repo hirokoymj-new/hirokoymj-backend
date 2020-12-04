@@ -1,6 +1,7 @@
-const express = require("express");
-const { ApolloServer } = require("apollo-server-express");
-const cors = require("cors");
+// const express = require("express");
+// const { ApolloServer } = require("apollo-server-express");
+// const cors = require("cors");
+const { ApolloServer, gql } = require("apollo-server");
 const dotEnv = require("dotenv");
 const jwt = require("jsonwebtoken");
 
@@ -11,16 +12,16 @@ const { connection } = require("./database/util");
 // set env variables
 dotEnv.config();
 
-const app = express();
+//const app = express();
 
 //db connectivity
 connection();
 
 //cores
-app.use(cors());
+// app.use(cors());
 
 // body parser middleware
-app.use(express.json());
+//app.use(express.json());
 
 const apolloServer = new ApolloServer({
   typeDefs,
@@ -50,22 +51,26 @@ const apolloServer = new ApolloServer({
     }
   },
 });
-("");
+//("");
 
-apolloServer.applyMiddleware({ app, path: "/graphql" });
+//apolloServer.applyMiddleware({ app, path: "/graphql" });
 
 //const PORT = process.env.PORT || 4000;
 
-app.use("/", (req, res, next) => {
-  res.send({ message: "Hello Hiroko" });
-});
+// app.use("/", (req, res, next) => {
+//   res.send({ message: "Hello Hiroko" });
+// });
 
 // app.listen(PORT, () => {
 //   console.log(`Server listening on PORT: ${PORT}`);
 // });
 
-app.listen({ port: process.env.PORT || 4000 }, () =>
-  console.log(
-    `🚀 Server ready at http://localhost:4000${apolloServer.graphqlPath}`
-  )
-);
+// app.listen({ port: process.env.PORT || 4000 }, () =>
+//   console.log(
+//     `🚀 Server ready at http://localhost:4000${apolloServer.graphqlPath}`
+//   )
+// );
+
+apolloServer.listen().then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
+});
