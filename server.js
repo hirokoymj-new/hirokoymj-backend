@@ -50,6 +50,8 @@ const apolloServer = new ApolloServer({
       throw error;
     }
   },
+  introspection: true,
+  playground: true,
 });
 //("");
 
