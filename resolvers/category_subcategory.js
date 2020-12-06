@@ -1,11 +1,5 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { combineResolvers } = require("graphql-resolvers");
-
 const Category = require("../database/models/category");
 const SubCategory = require("../database/models/subCategory");
-const Topic = require("../database/models/topic");
-const { isAuthenticated } = require("./middleware");
 
 module.exports = {
   Query: {
@@ -27,17 +21,6 @@ module.exports = {
       const subCategoryArray = SubCategory.find({ category: categoryId });
       return subCategoryArray;
     },
-    topics: (_) => {
-      return Topic.find();
-    },
-    topicById: (_, { id }) => {
-      const topic = Topic.findById(id);
-      return topic;
-    },
-    topicByCategory: (_, { categoryId }) => {
-      const topicArray = Topic.find({ category: categoryId });
-      return topicArray;
-    },
   },
   Mutation: {
     createCategory: async (_, { input }) => {
@@ -54,15 +37,6 @@ module.exports = {
       try {
         const subCategory = new SubCategory({ ...input });
         const result = await subCategory.save();
-        return result;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    createTopic: async (_, { input }) => {
-      try {
-        const topic = new Topic({ ...input });
-        const result = await topic.save();
         return result;
       } catch (error) {
         console.log(error);
@@ -94,22 +68,10 @@ module.exports = {
         throw error;
       }
     },
-    deleteTopic: async (_, { id }) => {
+    deleteCategory: async (_, { id }) => {
       try {
-        const topic = await Topic.findByIdAndDelete(id);
-        return topic;
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    updateTopic: async (_, { id, input }) => {
-      try {
-        const topic = await Topic.findByIdAndUpdate(
-          id,
-          { ...input },
-          { new: true }
-        );
-        return topic;
+        const category = await Category.findByIdAndDelete(id);
+        return category;
       } catch (error) {
         console.log(error);
         throw error;
@@ -121,16 +83,6 @@ module.exports = {
     category: async (parent) => {
       const category = await Category.findById(parent.category);
       return category;
-    },
-  },
-  Topic: {
-    category: async (parent) => {
-      const category = await Category.findById(parent.category);
-      return category;
-    },
-    subCategory: async (parent) => {
-      const subCategory = await SubCategory.findById(parent.subCategory);
-      return subCategory;
     },
   },
 };

@@ -31,6 +31,7 @@ const server = new ApolloServer({
 ```
 
 <hr />
+
 **Daily log**
 12/6
 

@@ -2,7 +2,7 @@ const { gql } = require("apollo-server");
 
 const userTypeDefs = require("./user");
 const taskTypeDefs = require("./task");
-const categoryTypeDefs = require("./category");
+const category_subcategoryTypeDefs = require("./category_subcategory");
 const topicTypeDefs = require("./topic");
 const weatherTypeDefs = require("./weather");
 
@@ -21,7 +21,7 @@ module.exports = [
   typeDefs,
   userTypeDefs,
   taskTypeDefs,
-  categoryTypeDefs,
+  category_subcategoryTypeDefs,
   topicTypeDefs,
   weatherTypeDefs,
 ];

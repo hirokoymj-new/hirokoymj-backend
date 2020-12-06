@@ -2,7 +2,8 @@ const { GraphQLDateTime } = require("graphql-iso-date");
 
 const userResolver = require("./user");
 const taskResolver = require("./task");
-const categoryResolver = require("./category");
+const category_subcategoryResolver = require("./category_subcategory");
+const topicResolver = require("./topic");
 const weatherResolver = require("./weather");
 
 const customDateScalarResolver = {
@@ -13,6 +14,7 @@ module.exports = [
   userResolver,
   taskResolver,
   customDateScalarResolver,
-  categoryResolver,
+  category_subcategoryResolver,
+  topicResolver,
   weatherResolver,
 ];
