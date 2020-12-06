@@ -30,3 +30,9 @@ const server = new ApolloServer({
 });
 ```
 
+<hr />
+**Daily log**
+12/6
+
+This is the fullstack app for the [Apollo tutorial](http://apollographql.com/docs/tutorial/introduction.html). 🚀
+

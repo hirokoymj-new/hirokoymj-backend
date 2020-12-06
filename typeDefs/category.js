@@ -7,9 +7,6 @@ module.exports = gql`
     subCategories: [SubCategory!]
     subCategoryById(id: ID!): SubCategory
     subCategoryByCategory(categoryId: ID): [SubCategory!]
-    topics: [Topic!]
-    topicById(id: ID!): Topic!
-    topicByCategory(categoryId: ID!): [Topic!]
   }
 
   extend type Mutation {
@@ -17,9 +14,6 @@ module.exports = gql`
     updateCategory(id: ID!, input: updateCategoryInput!): Category
     createSubCategory(input: createSubCategoryInput): SubCategory
     updateSubCategory(id: ID!, input: updateSubCategoryInput!): SubCategory
-    createTopic(input: createTopicInput): Topic
-    deleteTopic(id: ID!): Topic
-    updateTopic(id: ID!, input: updateTopicInput): Topic
   }
 
   type Category {
@@ -46,31 +40,11 @@ module.exports = gql`
     name: String!
   }
 
-  input createTopicInput {
-    title: String!
-    url: String!
-    category: ID!
-    subCategory: ID!
-  }
-
-  input updateTopicInput {
-    title: String
-    url: String
-  }
-
   type SubCategory {
     id: ID!
     name: String!
     category: Category
     createdAt: Date!
     updatedAt: Date!
-  }
-
-  type Topic {
-    id: ID!
-    title: String!
-    url: String!
-    category: Category!
-    subCategory: SubCategory!
   }
 `;

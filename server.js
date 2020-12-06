@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const resolvers = require("./resolvers");
 const typeDefs = require("./typeDefs");
 const { connection } = require("./database/util");
+const WeatherAPI = require("./datasources/weather");
 
 // set env variables
 dotEnv.config();
@@ -38,6 +39,9 @@ const apolloServer = new ApolloServer({
       throw error;
     }
   },
+  dataSources: () => ({
+    weatherAPI: new WeatherAPI(),
+  }),
   introspection: true,
   playground: true,
 });

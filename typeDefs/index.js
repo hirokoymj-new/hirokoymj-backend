@@ -2,7 +2,9 @@ const { gql } = require("apollo-server");
 
 const userTypeDefs = require("./user");
 const taskTypeDefs = require("./task");
-const categorytypeDefs = require("./category");
+const categoryTypeDefs = require("./category");
+const topicTypeDefs = require("./topic");
+const weatherTypeDefs = require("./weather");
 
 const typeDefs = gql`
   scalar Date
@@ -15,4 +17,11 @@ const typeDefs = gql`
   }
 `;
 
-module.exports = [typeDefs, userTypeDefs, taskTypeDefs, categorytypeDefs];
+module.exports = [
+  typeDefs,
+  userTypeDefs,
+  taskTypeDefs,
+  categoryTypeDefs,
+  topicTypeDefs,
+  weatherTypeDefs,
+];
