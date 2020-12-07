@@ -3,23 +3,40 @@ const SubCategory = require("../database/models/subCategory");
 
 module.exports = {
   Query: {
-    categories: (_) => {
-      return Category.find();
+    categories: async (_) => {
+      try {
+        return await Category.find().sort({ order: 1 });
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     },
     categoryById: (_, { id }) => {
       const category = Category.findById(id);
       return category;
     },
-    subCategories: (_) => {
-      return SubCategory.find();
+    subCategories: async (_) => {
+      try {
+        return await SubCategory.find().sort({ order: 1 });
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     },
     subCategoryById: (_, { id }) => {
       const subCategory = SubCategory.findById(id);
       return subCategory;
     },
-    subCategoryByCategory: (_, { categoryId }) => {
-      const subCategoryArray = SubCategory.find({ category: categoryId });
-      return subCategoryArray;
+    subCategoryByCategory: async (_, { categoryId }) => {
+      try {
+        const subCategoryArray = await SubCategory.find({
+          category: categoryId,
+        }).sort({ order: -1 });
+        return subCategoryArray;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     },
   },
   Mutation: {

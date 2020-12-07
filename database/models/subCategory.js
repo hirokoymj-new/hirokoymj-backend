@@ -10,6 +10,10 @@ const subCategorySchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
     },
+    order: {
+      type: Number,
+      required: false,
+    },
   },
   {
     timestamps: true,
