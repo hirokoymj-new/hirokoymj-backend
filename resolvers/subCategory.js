@@ -1,4 +1,4 @@
-//const Category = require("../database/models/category");
+const Category = require("../database/models/category");
 const SubCategory = require("../database/models/subCategory");
 
 module.exports = {
