@@ -22,6 +22,7 @@ module.exports = gql`
   input updateSubCategoryInput {
     name: String
     order: Int
+    category: ID
   }
 
   type SubCategory {
