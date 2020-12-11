@@ -50,6 +50,15 @@ module.exports = {
         throw error;
       }
     },
+    deleteSubCategory: async (_, { id }) => {
+      try {
+        const subCategory = await SubCategory.findByIdAndDelete(id);
+        return subCategory;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
   },
   // Field Level Resolver
   SubCategory: {

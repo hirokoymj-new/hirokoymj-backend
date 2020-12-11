@@ -10,6 +10,7 @@ module.exports = gql`
   extend type Mutation {
     createSubCategory(input: createSubCategoryInput): SubCategory
     updateSubCategory(id: ID!, input: updateSubCategoryInput!): SubCategory
+    deleteSubCategory(id: ID!): SubCategory
   }
 
   input createSubCategoryInput {
