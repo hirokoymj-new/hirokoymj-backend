@@ -10,7 +10,7 @@ module.exports = gql`
   extend type Mutation {
     createTopic(input: createTopicInput): Topic
     deleteTopic(id: ID!): Topic
-    updateTopic(id: ID!, input: updateTopicInput): Topic
+    updateTopic(id: ID!, input: updateTopicInput!): Topic
   }
 
   input createTopicInput {
@@ -23,6 +23,8 @@ module.exports = gql`
   input updateTopicInput {
     title: String
     url: String
+    category: ID!
+    subCategory: ID!
   }
 
   type Topic {
