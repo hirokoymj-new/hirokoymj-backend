@@ -15,10 +15,10 @@ module.exports = {
       const topicArray = Topic.find({ category: categoryId });
       return topicArray;
     },
-    topicByCategoryName: async (_, { categoryName }) => {
+    topicByCategoryAbbr: async (_, { abbr }) => {
       try {
-        const category = await Category.findOne({ name: categoryName });
-        const topics = await Topic.find({ category: category.id });
+        const { id } = await Category.findOne({ abbr });
+        const topics = await Topic.find({ category: id });
         return topics;
       } catch (error) {
         console.log(error);

@@ -5,7 +5,7 @@ module.exports = gql`
     topics: [Topic!]
     topicById(id: ID!): Topic!
     topicByCategory(categoryId: ID!): [Topic!]
-    topicByCategoryName(categoryName: String!): [Topic!]
+    topicByCategoryAbbr(abbr: String!): [Topic!]
   }
 
   extend type Mutation {
