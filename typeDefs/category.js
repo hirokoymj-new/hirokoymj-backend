@@ -15,6 +15,7 @@ module.exports = gql`
   type Category {
     id: ID!
     name: String!
+    abbr: String!
     order: Int
     createdAt: Date!
     updatedAt: Date!
@@ -22,11 +23,13 @@ module.exports = gql`
 
   input updateCategoryInput {
     name: String
+    abbr: String
     order: Int
   }
 
   input createCategoryInput {
     name: String!
+    abbr: String!
     order: Int
   }
 `;

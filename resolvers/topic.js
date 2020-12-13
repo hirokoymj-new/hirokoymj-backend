@@ -15,6 +15,15 @@ module.exports = {
       const topicArray = Topic.find({ category: categoryId });
       return topicArray;
     },
+    topicByCategoryName: async (_, { categoryName }) => {
+      try {
+        const category = await Category.findOne({ name: categoryName });
+        const topics = await Topic.find({ category: category.id });
+        return topics;
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
   Mutation: {
     createTopic: async (_, { input }) => {

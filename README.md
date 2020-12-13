@@ -1,9 +1,11 @@
 # GraphQL Apollo Server for hirokoymj.com
  
-### URL
+### Production URL
 
  https://hirokoymj-backend.herokuapp.com/
 
+### Localhost URL
+http://localhost:4000/
 
 ### MongoDB Local
 mongodb://localhost:27017/mydb
