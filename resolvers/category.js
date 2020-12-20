@@ -2,9 +2,42 @@ const Category = require("../database/models/category");
 
 module.exports = {
   Query: {
-    categories: async (_) => {
+    categories: async (_, { cursor, limit = 10 }) => {
       try {
-        return await Category.find().sort({ order: 1 });
+        const query = {};
+        if (cursor) {
+          query["_id"] = {
+            $lt: cursor,
+          };
+        }
+        let categories = await Category.find(query)
+          .sort({ _id: -1 })
+          .limit(limit + 1);
+        const hasNextPage = categories.length > limit;
+        categories = hasNextPage ? categories.slice(0, -1) : categories;
+
+        const totalCount = await Category.countDocuments();
+
+        const dummy = {
+          categoryFeed: categories,
+          totalCount,
+          pageInfo: {
+            endCursor: hasNextPage
+              ? categories[categories.length - 1].id
+              : null,
+            hasNextPage,
+          },
+        };
+        return {
+          categoryFeed: categories,
+          totalCount,
+          pageInfo: {
+            endCursor: hasNextPage
+              ? categories[categories.length - 1].id
+              : null,
+            hasNextPage,
+          },
+        };
       } catch (error) {
         console.log(error);
         throw error;
