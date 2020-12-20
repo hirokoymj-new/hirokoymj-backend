@@ -2,7 +2,7 @@ const { gql } = require("apollo-server");
 
 module.exports = gql`
   extend type Query {
-    subCategories: [SubCategory!]
+    subCategories(limit: Int, cursor: String): SubCategoryFeed!
     subCategoryById(id: ID!): SubCategory
     subCategoryByCategory(categoryId: ID): [SubCategory!]
   }
@@ -33,5 +33,11 @@ module.exports = gql`
     category: Category
     createdAt: Date!
     updatedAt: Date!
+  }
+
+  type SubCategoryFeed {
+    subCategoryFeed: [SubCategory!]
+    totalCount: Int!
+    pageInfo: PageInfo!
   }
 `;

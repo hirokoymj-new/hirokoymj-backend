@@ -3,9 +3,35 @@ const SubCategory = require("../database/models/subCategory");
 
 module.exports = {
   Query: {
-    subCategories: async (_) => {
+    subCategories: async (_, { cursor, limit = 10 }) => {
       try {
-        return await SubCategory.find().sort({ category: 1 });
+        const query = {};
+        if (cursor) {
+          query["_id"] = {
+            $lt: cursor,
+          };
+        }
+
+        let subCategories = await SubCategory.find(query)
+          .sort({ _id: -1 })
+          .limit(limit + 1);
+
+        const hasNextPage = subCategories.length > limit;
+        subCategories = hasNextPage
+          ? subCategories.slice(0, -1)
+          : subCategories;
+
+        const totalCount = await SubCategory.countDocuments();
+        return {
+          subCategoryFeed: subCategories,
+          totalCount,
+          pageInfo: {
+            endCursor: hasNextPage
+              ? subCategories[subCategories.length - 1].id
+              : null,
+            hasNextPage,
+          },
+        };
       } catch (error) {
         console.log(error);
         throw error;
