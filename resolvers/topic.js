@@ -4,8 +4,33 @@ const Topic = require("../database/models/topic");
 
 module.exports = {
   Query: {
-    topics: (_) => {
-      return Topic.find();
+    topics: async (_, { cursor, limit = 10 }) => {
+      try {
+        const query = {};
+        if (cursor) {
+          query["_id"] = {
+            $lt: cursor,
+          };
+        }
+        let topics = await Topic.find(query)
+          .sort({ _id: -1 })
+          .limit(limit + 1);
+        const hasNextPage = topics.length > limit;
+        topics = hasNextPage ? topics.slice(0, -1) : topics;
+
+        const totalCount = await Topic.countDocuments();
+        return {
+          topicFeed: topics,
+          totalCount,
+          pageInfo: {
+            endCursor: hasNextPage ? topics[topics.length - 1].id : null,
+            hasNextPage,
+          },
+        };
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     },
     topicById: (_, { id }) => {
       const topic = Topic.findById(id);

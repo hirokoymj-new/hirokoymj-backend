@@ -2,7 +2,7 @@ const { gql } = require("apollo-server");
 
 module.exports = gql`
   extend type Query {
-    topics: [Topic!]
+    topics(limit: Int, cursor: String): TopicFeed!
     topicById(id: ID!): Topic!
     topicByCategory(categoryId: ID!): [Topic!]
     topicByCategoryAbbr(abbr: String!): [Topic!]
@@ -34,5 +34,11 @@ module.exports = gql`
     url: String!
     category: Category!
     subCategory: SubCategory!
+  }
+
+  type TopicFeed {
+    topicFeed: [Topic!]
+    totalCount: Int!
+    pageInfo: PageInfo!
   }
 `;
