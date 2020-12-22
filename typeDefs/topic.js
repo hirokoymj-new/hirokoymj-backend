@@ -32,8 +32,8 @@ module.exports = gql`
     id: ID!
     title: String!
     url: String!
-    category: Category!
-    subCategory: SubCategory!
+    category: Category
+    subCategory: SubCategory
   }
 
   type TopicFeed {
