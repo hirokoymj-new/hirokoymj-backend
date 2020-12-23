@@ -1,6 +1,6 @@
 module.exports = {
   Query: {
-    weathers: (_, __, { dataSources }) =>
-      dataSources.weatherAPI.getAllWeathers(),
+    currentWeather: (_, { lat, lon, unit = "metric" }, { dataSources }) =>
+      dataSources.weatherAPI.getCurrentWeather(lat, lon, unit),
   },
 };
