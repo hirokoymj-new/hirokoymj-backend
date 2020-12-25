@@ -4,5 +4,7 @@ module.exports = {
       dataSources.weatherAPI.getCurrentWeather(lat, lon, unit),
     currentWeatherByCity: (_, { city, unit = "metric" }, { dataSources }) =>
       dataSources.weatherAPI.getCurrentWeatherByCity(city, unit),
+    dailyForecast: (_, { city, unit = "metric" }, { dataSources }) =>
+      dataSources.weatherAPI.getDailyForecast(city, unit),
   },
 };
