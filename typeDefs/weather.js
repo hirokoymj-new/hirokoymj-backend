@@ -2,8 +2,7 @@ const { gql } = require("apollo-server");
 
 module.exports = gql`
   extend type Query {
-    currentWeather(lat: String!, lon: String!, unit: String): Weather!
-    currentWeatherByCity(city: String!, unit: Units): Weather
+    currentWeatherByCity(city: String!, unit: Units): CurrentWeather
     dailyForecast(city: String!, unit: Units): DailyForecast
   }
 
@@ -12,42 +11,45 @@ module.exports = gql`
     imperial
   }
 
-  type Weather {
-    id: String!
-    cityName: String!
-    country: String
-    weather: String
-    icon: String
-    temperature: Float
-    min: Float
-    max: Float
-    humidity: Int
-  }
-
-  type DailyForecast {
-    id: String!
-    city: City
-    forecastList: [Forecast!]
-  }
-
-  type City {
-    name: String
-    lon: String
-    lat: String
-    country: String
-  }
-
-  type Forecast {
-    dt: Int
-    temperature: Temperature
-    weather: String
-    icon: String
-    humidity: Int
-  }
-
   type Temperature {
     day: Float
     min: Float
     max: Float
+  }
+
+  type CityInfo {
+    name: String
+    country: String
+    lon: String
+    lat: String
+  }
+
+  type Weather {
+    dt: Int!
+    condition: String
+    icon: String
+    temperature: Temperature
+  }
+
+  type CurrentWeather {
+    id: Int! # Use cityId
+    cityInfo: CityInfo
+    weather: Weather
+  }
+
+  type Forecast {
+    dt: Int!
+    condition: String
+    icon: String
+    temperature: Temperature
+    humidity: Float
+    wind: Float
+    rain: Float
+  }
+
+  type DailyForecast {
+    id: Int! # Use cityId
+    cityInfo: CityInfo
+    forecastList: [Forecast]
   }
 `;

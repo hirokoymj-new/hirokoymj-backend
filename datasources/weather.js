@@ -9,95 +9,79 @@ class WeatherAPI extends RESTDataSource {
     this.apiKey = "be2d43efb7b89c5d69256d7ec44da9b8";
   }
 
-  async getCurrentWeather(lat, lon, unit) {
-    console.log("getCurrentWeather");
-    const response = await this.get(
-      `data/2.5/weather?lat=${lat}&lon=${lon}&units=${unit}&type=accurate&appid=${this.apiKey}`
-    );
-
-    const id = get(response, "id");
-    const { country } = get(response, "sys", {});
-    const name = get(response, "name");
-    const { main, icon } = get(response, "weather[0]", []);
-    const { temp, temp_min, temp_max, humidity } = get(response, "main", {});
-
-    return {
-      id,
-      cityName: name,
-      country,
-      weather: main,
-      icon,
-      temperature: temp,
-      min: temp_min,
-      max: temp_max,
-      humidity,
-    };
-  }
-
   async getCurrentWeatherByCity(city, unit) {
     const response = await this.get(
-      `data/2.5/weather?q=${city}&units=${unit}&appid=be2d43efb7b89c5d69256d7ec44da9b8`
+      `data/2.5/weather?q=${city}&units=${unit}&appid=${this.apiKey}`
     );
 
-    const id = get(response, "id");
-    const { country } = get(response, "sys", {});
-    const name = get(response, "name");
-    const { main, icon } = get(response, "weather[0]", []);
-    const { temp, temp_min, temp_max, humidity } = get(response, "main", {});
+    const id = get(response, "id"); // City Id
+    const cityInfo = {
+      name: get(response, "name", ""),
+      country: get(response, "sys.country", ""),
+    };
+    const weather = {
+      dt: get(response, "dt"),
+      condition: get(response, "weather[0].main"),
+      icon: get(response, "weather[0].icon"),
+      temperature: {
+        day: get(response, "main.temp"),
+        min: get(response, "main.temp_min"),
+        max: get(response, "main.temp_max"),
+      },
+    };
 
     return {
       id,
-      cityName: name,
-      country,
-      weather: main,
-      icon,
-      temperature: temp,
-      min: temp_min,
-      max: temp_max,
-      humidity,
+      cityInfo,
+      weather,
     };
   }
 
   async getDailyForecast(city, unit) {
+    const days = 7;
     const response = await this.get(
-      `data/2.5/forecast/daily?q=${city}&units=metric&cnt=7&appid=${this.apiKey}`
+      `data/2.5/forecast/daily?q=${city}&units=${unit}&cnt=${days}&appid=${this.apiKey}`
     );
 
-    const {
-      id,
-      name,
-      coord: { lon, lat },
-      country,
-    } = get(response, "city");
+    const id = get(response, "city.id");
+    const cityInfo = {
+      name: get(response, "city.name"),
+      country: get(response, "city.country"),
+      lon: get(response, "city.coord.lon", 0),
+      lat: get(response, "city.coord.lat", 0),
+    };
     const list = get(response, "list", []);
 
     const mappedData = map(list, (data) => {
-      const {
-        dt,
-        temp: { day, min, max },
-        humidity,
-        weather,
-      } = data;
+      const { dt, temp, humidity, speed } = data;
+      const { main, icon } = get(data, "weather[0]", []);
+      const temperature = {
+        day: get(temp, "day", 0),
+        min: get(temp, "min", 0),
+        max: get(temp, "max", 0),
+      };
 
       return {
         dt,
-        temperature: {
-          day,
-          min,
-          max,
-        },
-        weather: weather[0].main,
-        icon: weather[0].icon,
+        condition: main,
+        icon,
+        temperature,
         humidity,
+        wind: speed,
       };
     });
 
     return {
       id,
-      city: { name, lon, lat, country },
+      cityInfo,
       forecastList: mappedData,
     };
   }
 }
-
 module.exports = WeatherAPI;
+
+// TEST URL - Current Weather
+// https://api.openweathermap.org/data/2.5/weather?q=tokyo&units=metric&appid=be2d43efb7b89c5d69256d7ec44da9b8
+
+// TEST URL - DailyForecast
+// https://api.openweathermap.org/data/2.5/forecast/daily?q=tokyo&units=metric&cnt=7&appid=be2d43efb7b89c5d69256d7ec44da9b8
