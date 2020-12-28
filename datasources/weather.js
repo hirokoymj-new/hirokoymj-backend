@@ -60,6 +60,7 @@ class WeatherAPI extends RESTDataSource {
         min: get(temp, "min", 0),
         max: get(temp, "max", 0),
       };
+      const rain = get(data, "rain") == null ? 0 : get(data, "rain");
 
       return {
         dt,
@@ -68,6 +69,7 @@ class WeatherAPI extends RESTDataSource {
         temperature,
         humidity,
         wind: speed,
+        rain,
       };
     });
 
