@@ -18,16 +18,21 @@ class WeatherAPI extends RESTDataSource {
     const cityInfo = {
       name: get(response, "name", ""),
       country: get(response, "sys.country", ""),
+      lon: get(response, "coord.lon"),
+      lat: get(response, "coord.lat"),
     };
     const weather = {
       dt: get(response, "dt"),
       condition: get(response, "weather[0].main"),
+      description: get(response, "weather[0].description"),
       icon: get(response, "weather[0].icon"),
       temperature: {
         day: get(response, "main.temp"),
         min: get(response, "main.temp_min"),
         max: get(response, "main.temp_max"),
       },
+      feelsLike: get(response, "main.feels_like"),
+      humidity: get(response, "main.humidity"),
     };
 
     return {

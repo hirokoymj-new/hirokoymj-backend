@@ -27,8 +27,11 @@ module.exports = gql`
   type Weather {
     dt: Int!
     condition: String
+    description: String
+    feelsLike: String
     icon: String
     temperature: Temperature
+    humidity: Float
   }
 
   type CurrentWeather {
