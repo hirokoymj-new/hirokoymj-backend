@@ -4,14 +4,15 @@ const Topic = require("../database/models/topic");
 
 module.exports = {
   Query: {
-    topics: async (_, { cursor, limit = 10 }) => {
+    topics: async (_, { cursor, limit = 10, filter }) => {
       try {
-        const query = {};
-        if (cursor) {
-          query["_id"] = {
-            $lt: cursor,
-          };
-        }
+        let query = {};
+
+        query = {
+          ...query,
+          ...(filter && { category: { $in: [...filter] } }),
+          ...(cursor && { _id: { $lt: cursor } }),
+        };
         let topics = await Topic.find(query)
           .sort({ _id: -1 })
           .limit(limit + 1);
