@@ -5,13 +5,6 @@ module.exports = {
   Query: {
     subCategories: async (_, { cursor, limit = 10, filter }) => {
       try {
-        // let query = {};
-
-        // query = {
-        //   ...query,
-        //   ...(filter && { category: { $in: [...filter] } }),
-        //   ...(cursor && { _id: { $lt: cursor } }),
-        // };
         let query = {};
 
         query = {
