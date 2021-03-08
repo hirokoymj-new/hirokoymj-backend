@@ -3,14 +3,15 @@ const SubCategory = require("../database/models/subCategory");
 
 module.exports = {
   Query: {
-    subCategories: async (_, { cursor, limit = 10 }) => {
+    subCategories: async (_, { cursor, limit = 10, filter }) => {
       try {
-        const query = {};
-        if (cursor) {
-          query["_id"] = {
-            $lt: cursor,
-          };
-        }
+        let query = {};
+
+        query = {
+          ...query,
+          ...(filter && { category: { $in: [...filter] } }),
+          ...(cursor && { _id: { $lt: cursor } }),
+        };
 
         let subCategories = await SubCategory.find(query)
           .sort({ _id: -1 })
