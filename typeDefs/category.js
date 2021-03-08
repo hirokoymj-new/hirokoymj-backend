@@ -2,8 +2,9 @@ const { gql } = require("apollo-server");
 
 module.exports = gql`
   extend type Query {
-    categories(limit: Int, cursor: String): CategoryFeed!
+    categories(limit: Int, cursor: String, filter: [String]): CategoryFeed!
     categoryById(id: ID!): Category!
+    categoryAll: [Category!]
   }
 
   extend type Mutation {

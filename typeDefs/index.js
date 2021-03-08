@@ -1,7 +1,5 @@
 const { gql } = require("apollo-server");
 
-const userTypeDefs = require("./user");
-const taskTypeDefs = require("./task");
 const categoryTypeDefs = require("./category");
 const subCategoryTypeDefs = require("./subCategory");
 const topicTypeDefs = require("./topic");
@@ -10,19 +8,20 @@ const cityTypeDefs = require("./city");
 
 const typeDefs = gql`
   scalar Date
-
   type Query {
     _: String
   }
   type Mutation {
     _: String
   }
+  type PageInfo {
+    endCursor: String
+    hasNextPage: Boolean
+  }
 `;
 
 module.exports = [
   typeDefs,
-  userTypeDefs,
-  taskTypeDefs,
   categoryTypeDefs,
   subCategoryTypeDefs,
   topicTypeDefs,
