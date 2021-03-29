@@ -15,30 +15,6 @@ connection();
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
-  context: async ({ req }) => {
-    try {
-      req.email = null;
-      const bearerHeader = req.headers.authorization;
-      if (bearerHeader) {
-        const token = bearerHeader.split(" ")[1];
-        const payload = jwt.verify(
-          token,
-          process.env.JWT_SECRET_KEY || "mysecretkey"
-        );
-        req.email = payload.email;
-      }
-      // Put this code is not good idea because login mutation won't need to check token.
-      // if (!req.email) {
-      //   throw new Error("Access Denied. please login");
-      // }
-      return {
-        email: req.email,
-      };
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  },
   dataSources: () => ({
     weatherAPI: new WeatherAPI(),
   }),
