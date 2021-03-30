@@ -1,10 +1,11 @@
-const { gql } = require("apollo-server");
+const { gql } = require("apollo-server-express");
 
 const categoryTypeDefs = require("./category");
 const subCategoryTypeDefs = require("./subCategory");
 const topicTypeDefs = require("./topic");
 const weatherTypeDefs = require("./weather");
 const cityTypeDefs = require("./city");
+const fileUploadTypeDefs = require("./fileUpload");
 
 const typeDefs = gql`
   scalar Date
@@ -27,4 +28,5 @@ module.exports = [
   topicTypeDefs,
   weatherTypeDefs,
   cityTypeDefs,
+  fileUploadTypeDefs,
 ];
