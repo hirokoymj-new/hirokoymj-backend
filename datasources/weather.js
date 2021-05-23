@@ -58,7 +58,7 @@ class WeatherAPI extends RESTDataSource {
     const list = get(response, "list", []);
 
     const mappedData = map(list, (data) => {
-      const { dt, temp, humidity, speed } = data;
+      const { dt, temp, humidity, speed, sunrise, sunset } = data;
       const { main, icon } = get(data, "weather[0]", []);
       const temperature = {
         day: get(temp, "day", 0),
@@ -75,6 +75,8 @@ class WeatherAPI extends RESTDataSource {
         humidity,
         wind: speed,
         rain,
+        sunrise,
+        sunset,
       };
     });
 

@@ -48,6 +48,8 @@ module.exports = gql`
     humidity: Float
     wind: Float
     rain: Float
+    sunrise: Int
+    sunset: Int
   }
 
   type DailyForecast {
