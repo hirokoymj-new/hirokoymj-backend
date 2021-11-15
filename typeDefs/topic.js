@@ -34,6 +34,8 @@ module.exports = gql`
     url: String!
     category: Category
     subCategory: SubCategory
+    createdAt: Date
+    updatedAt: Date
   }
 
   type TopicFeed {
