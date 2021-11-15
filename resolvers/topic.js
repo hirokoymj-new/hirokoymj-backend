@@ -44,7 +44,9 @@ module.exports = {
     topicByCategoryAbbr: async (_, { abbr }) => {
       try {
         const { id } = await Category.findOne({ abbr });
-        const topics = await Topic.find({ category: id });
+        const topics = await Topic.find({ category: id }).sort({
+          updatedAt: -1,
+        });
         return topics;
       } catch (error) {
         console.log(error);
