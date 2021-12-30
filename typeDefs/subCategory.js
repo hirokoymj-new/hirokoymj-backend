@@ -9,6 +9,7 @@ module.exports = gql`
     ): SubCategoryFeed!
     subCategoryById(id: ID!): SubCategory
     subCategoryByCategory(categoryId: ID): [SubCategory!]
+    subCategoryAll: [SubCategory!]
   }
 
   extend type Mutation {

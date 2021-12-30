@@ -53,6 +53,15 @@ module.exports = {
         throw error;
       }
     },
+    subCategoryAll: async () => {
+      try {
+        const subCategory = await SubCategory.find().sort({ name: "asc" });
+        return subCategory;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
   },
   Mutation: {
     createSubCategory: async (_, { input }) => {
