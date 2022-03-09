@@ -19,6 +19,7 @@ module.exports = gql`
     url: String!
     category: ID!
     subCategory: ID!
+    order: Int
   }
 
   input updateTopicInput {
@@ -26,6 +27,7 @@ module.exports = gql`
     url: String
     category: ID!
     subCategory: ID!
+    order: Int
   }
 
   type Topic {
@@ -34,6 +36,7 @@ module.exports = gql`
     url: String!
     category: Category
     subCategory: SubCategory
+    order: Int
     createdAt: Date
     updatedAt: Date
   }
