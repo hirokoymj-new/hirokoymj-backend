@@ -30,8 +30,10 @@ module.exports = gql`
     id: ID!
     name: String!
     email: String!
-    tasks: [Task!]
+    # tasks: [Task!]
     createdAt: Date!
     updatedAt: Date!
+    order: String
+    image: String
   }
 `;

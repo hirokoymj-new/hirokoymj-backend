@@ -5,6 +5,7 @@ const subCategoryTypeDefs = require("./subCategory");
 const topicTypeDefs = require("./topic");
 const weatherTypeDefs = require("./weather");
 const cityTypeDefs = require("./city");
+const userTypeDefs = require("./user");
 
 const typeDefs = gql`
   scalar Date
@@ -27,4 +28,5 @@ module.exports = [
   topicTypeDefs,
   weatherTypeDefs,
   cityTypeDefs,
+  userTypeDefs,
 ];

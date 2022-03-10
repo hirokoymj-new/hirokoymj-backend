@@ -18,6 +18,10 @@ const topicSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "SubCategory",
     },
+    order: {
+      type: Number,
+      required: false,
+    },
     createdAt: {
       type: Date,
     },
