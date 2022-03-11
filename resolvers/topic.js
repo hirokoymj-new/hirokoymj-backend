@@ -14,8 +14,7 @@ module.exports = {
           ...(cursor && { _id: { $lt: cursor } }),
         };
         let topics = await Topic.find(query)
-          // .sort({ _id: -1 })
-          .sort({ order: -1 })
+          .sort({ order: 1 })
           .limit(limit + 1);
         const hasNextPage = topics.length > limit;
         topics = hasNextPage ? topics.slice(0, -1) : topics;
@@ -40,7 +39,7 @@ module.exports = {
     },
     topicByCategory: (_, { categoryId }) => {
       const topicArray = Topic.find({ category: categoryId }).sort({
-        order: -1,
+        order: 1,
       });
       return topicArray;
     },
@@ -48,8 +47,7 @@ module.exports = {
       try {
         const { id } = await Category.findOne({ abbr });
         const topics = await Topic.find({ category: id }).sort({
-          // updatedAt: -1,
-          order: -1,
+          order: 1,
         });
         return topics;
       } catch (error) {
