@@ -1,6 +1,5 @@
 const { ApolloServer, gql } = require("apollo-server");
 const dotEnv = require("dotenv");
-const jwt = require("jsonwebtoken");
 
 const resolvers = require("./resolvers");
 const typeDefs = require("./typeDefs");

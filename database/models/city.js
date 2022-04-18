@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const { model, Schema } = require("mongoose");
 
-const citySchema = new mongoose.Schema({
+const citySchema = new Schema({
   id: {
     type: Number,
     required: true,
@@ -19,7 +19,6 @@ const citySchema = new mongoose.Schema({
   },
   coord: {
     lon: {
-      // type: mongoose.Schema.Types.Decimal128,
       type: Number,
     },
     lat: {
@@ -28,4 +27,4 @@ const citySchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("City", citySchema);
+module.exports = model("City", citySchema);

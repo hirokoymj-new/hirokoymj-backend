@@ -12,7 +12,7 @@ http://localhost:4000/
 
 mongodb://localhost:27017/mydb
 
-### MonboDB Production
+### MongoDB Production
 
 [MongoDB Altras Login](https://account.mongodb.com/account/login?nds=true)
 
@@ -35,6 +35,78 @@ const server = new ApolloServer({
 ```
 
 <hr />
+
+## Run local
+
+```js
+npm run dev
+```
+
+RegisteredUser
+
+```js
+mutation RegisterUser {
+  registerUser(registerInput: {username: "test", email: "test@test.com", password: "test"}) {
+     username
+     email
+     password
+  }
+}
+
+{
+  "data": {
+    "registerUser": {
+      "username": "test",
+      "email": "test@test.com",
+      "password": "$2a$10$jWLsWh7TNYrPszogbEwole.MH.EPZv4d8x.sfLmDz27n0eEifonke"
+    }
+  }
+}
+```
+
+```js
+// User Query
+query GETUSER{
+  user(id: "625b8f06a3426c0cc489723c"){
+    username
+    email
+    token
+    password
+  }
+}
+{
+  "data": {
+    "user": {
+      "username": "test",
+      "email": "test@test.com",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjI1YjhmMDZhMzQyNmMwY2M0ODk3MjNjIiwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNjUwMTY3NTU4LCJleHAiOjE2NTAxNzQ3NTh9.9iHCXDIYZly6a0e00mbUxP3W-zq8saetuy-QV7fzQ9o",
+      "password": "$2a$10$jWLsWh7TNYrPszogbEwole.MH.EPZv4d8x.sfLmDz27n0eEifonke"
+    }
+  }
+}
+```
+
+```js
+mutation LOGINUSER{
+	loginUser(loginInput: {email: "test@test.com", password: "test"}){
+    username
+    email
+    password
+    token
+  }
+}
+
+{
+  "data": {
+    "loginUser": {
+      "username": "test",
+      "email": "test@test.com",
+      "password": "$2a$10$jWLsWh7TNYrPszogbEwole.MH.EPZv4d8x.sfLmDz27n0eEifonke",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjI1YjhmMDZhMzQyNmMwY2M0ODk3MjNjIiwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNjUwMjQzNjg1LCJleHAiOjE2NTAyNTA4ODV9.NOfe1Vd7FzfbofbGc3RnOT8faiVDG19_XhUHoJre1nM"
+    }
+  }
+}
+```
 
 ## graphql-tools
 
