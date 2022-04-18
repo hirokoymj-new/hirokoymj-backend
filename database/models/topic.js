@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const { model, Schema } = require("mongoose");
 
-const topicSchema = new mongoose.Schema(
+const topicSchema = new Schema(
   {
     title: {
       type: String,
@@ -11,11 +11,11 @@ const topicSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Category",
     },
     subCategory: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "SubCategory",
     },
     order: {
@@ -34,4 +34,4 @@ const topicSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Topic", topicSchema);
+module.exports = model("Topic", topicSchema);
