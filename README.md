@@ -25,6 +25,16 @@ mongodb://localhost:27017/mydb
 - `introspection` and the `playground` can be enabled explicitly in the following manner.
 - [Apollo Server Official Doc: GraphQL Playground](https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/#gatsby-focus-wrapper)
 
+### Manual deploy in heroku
+
+- Add a remote to your local repository with the heroku `git:remote`
+
+```js
+% heroku git:remote -a hirokoymj-backend
+ ›   Warning: heroku update available from 7.59.2 to 7.60.1.
+set git remote heroku to https://git.heroku.com/hirokoymj-backend.git
+```
+
 ```js
 const server = new ApolloServer({
   typeDefs,
@@ -42,7 +52,9 @@ const server = new ApolloServer({
 npm run dev
 ```
 
-RegisteredUser
+### Testing some queries and mutations
+
+**RegisteredUser**
 
 ```js
 mutation RegisterUser {
@@ -64,8 +76,9 @@ mutation RegisterUser {
 }
 ```
 
+**User Query**
+
 ```js
-// User Query
 query GETUSER{
   user(id: "625b8f06a3426c0cc489723c"){
     username
@@ -85,6 +98,8 @@ query GETUSER{
   }
 }
 ```
+
+**LoginUser mutation**
 
 ```js
 mutation LOGINUSER{
@@ -108,11 +123,15 @@ mutation LOGINUSER{
 }
 ```
 
-## graphql-tools
+## References:
 
-https://www.apollographql.com/docs/apollo-server/api/graphql-tools/
-https://www.graphql-tools.com/docs/introduction/
+**graphql-tools**
 
-## Apollo Server Instance Options
+- https://www.apollographql.com/docs/apollo-server/api/graphql-tools/
+- https://www.graphql-tools.com/docs/introduction/
 
-https://www.apollographql.com/docs/apollo-server/api/apollo-server/
+**Apollo Server Instance Options**
+
+- https://www.apollographql.com/docs/apollo-server/api/apollo-server/
+
+- [Heroku: Deploying with Git](https://devcenter.heroku.com/articles/git#create-a-heroku-remote)

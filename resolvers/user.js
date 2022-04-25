@@ -21,6 +21,7 @@ module.exports = {
       const token = jwt.sign(
         {
           user_id: newUser._id,
+          username,
           email,
         },
         "UNSAFE_STRING",
